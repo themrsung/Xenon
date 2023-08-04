@@ -76,7 +76,7 @@ public final class Numbers {
     }
 
     //
-    // Vector-Matrix arithmetic
+    // Vector-Matrix Arithmetic
     //
 
     /**

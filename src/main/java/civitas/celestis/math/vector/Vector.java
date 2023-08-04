@@ -1,5 +1,6 @@
 package civitas.celestis.math.vector;
 
+import civitas.celestis.math.Number;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -10,7 +11,7 @@ import jakarta.annotation.Nonnull;
  * or a certain coordinate within an n-dimensional space.
  * </p>
  */
-public interface Vector {
+public interface Vector extends Number {
     //
     // Conversion
     //

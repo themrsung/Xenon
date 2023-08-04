@@ -1,5 +1,6 @@
 package civitas.celestis.math.matrix;
 
+import civitas.celestis.math.Number;
 import jakarta.annotation.Nonnull;
 
 import java.util.Iterator;
@@ -10,7 +11,7 @@ import java.util.Iterator;
  * This interface defines the contract for a matrix representation.
  * </p>
  */
-public interface Matrix extends Iterable<Double> {
+public interface Matrix extends Number, Iterable<Double> {
     //
     // Accessors
     //
