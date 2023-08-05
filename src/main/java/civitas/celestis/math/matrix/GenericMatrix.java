@@ -222,7 +222,7 @@ public class GenericMatrix implements Matrix {
     @Override
     @Nonnull
     public Iterator<Double> iterator() {
-        return new Iterator<Double>() {
+        return new Iterator<>() {
             private int index = 0;
 
             @Override

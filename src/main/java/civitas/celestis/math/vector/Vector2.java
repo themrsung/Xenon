@@ -3,6 +3,8 @@ package civitas.celestis.math.vector;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
+import java.util.Objects;
+
 /**
  * <h2>Vector2</h2>
  * <p>
@@ -164,6 +166,19 @@ public class Vector2 implements Vector {
         final double sin = Math.sin(angle);
 
         return multiply(new Vector2(cos, -sin));
+    }
+
+    /**
+     * Compares this {@code Vector2} with the specified object for equality.
+     *
+     * @param o The object to compare with.
+     * @return {@code true} if the provided object is equal to this {@code Vector2}, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof Vector2 v2)) return false;
+        return x == v2.x && y == v2.y;
     }
 
     //

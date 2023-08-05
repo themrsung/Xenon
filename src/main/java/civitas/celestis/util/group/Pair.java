@@ -51,6 +51,21 @@ public class Pair<T> implements Group<T> {
         return b;
     }
 
+    /**
+     * Returns the other element in the pair that is not equal to the provided element.
+     *
+     * @param element The element for which to find the other element in the pair.
+     * @return The other element in the pair.
+     * @throws IllegalArgumentException If the provided element is not a member of this pair.
+     */
+    @Nonnull
+    public T other(@Nonnull T element) throws IllegalArgumentException {
+        if (a.equals(element)) return b;
+        if (b.equals(element)) return a;
+
+        throw new IllegalArgumentException("Given element is not a member of this pair.");
+    }
+
     @Nonnull
     @Override
     public List<T> toList() {
@@ -68,5 +83,13 @@ public class Pair<T> implements Group<T> {
 
         return (Objects.equals(a, pair.a) && Objects.equals(b, pair.b)) ||
                 (Objects.equals(a, pair.b) && Objects.equals(b, pair.a));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Pair<?> pair)) return false;
+
+        return Objects.equals(a, pair.a) && Objects.equals(b, pair.b);
     }
 }

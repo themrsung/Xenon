@@ -180,6 +180,19 @@ public class Vector4 implements Vector {
         return new Vector4(-w, -x, -y, -z);
     }
 
+    /**
+     * Compares this {@code Vector4} with the specified object for equality.
+     *
+     * @param o The object to compare with.
+     * @return {@code true} if the provided object is equal to this {@code Vector4}, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof Vector4 v4)) return false;
+        return w == v4.w && x == v4.x && y == v4.y && z == v4.z;
+    }
+
     //
     // Serialization
     //

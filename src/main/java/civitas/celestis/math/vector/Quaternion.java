@@ -111,6 +111,18 @@ public class Quaternion extends Vector4 {
                 -y() * invNormSquared, -z() * invNormSquared);
     }
 
+    /**
+     * Compares this {@code Quaternion} with the specified object for equality.
+     *
+     * @param o The object to compare with.
+     * @return {@code true} if the provided object is equal to this {@code Quaternion}, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Quaternion q)) return false;
+        return super.equals(q);
+    }
+
     //
     // Serialization
     //

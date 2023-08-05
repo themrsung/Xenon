@@ -210,8 +210,41 @@ public class Vector3 implements Vector {
      */
     @Nonnull
     public Vector3 rotate(@Nonnull Quaternion rq) {
-        Quaternion pq = rq.multiply(toQuaternion()).multiply(rq.conjugate());
+        final Quaternion pq = rq.multiply(toQuaternion()).multiply(rq.conjugate());
         return new Vector3(pq.x(), pq.y(), pq.z());
+    }
+
+    /**
+     * Calculates the Euclidean distance between this {@code Vector3} and another vector.
+     *
+     * @param other The vector to calculate the distance to.
+     * @return The Euclidean distance between this vector and the provided vector.
+     */
+    public double distance(@Nonnull Vector3 other) {
+        return other.subtract(this).magnitude();
+    }
+
+    /**
+     * Calculates the squared Euclidean distance between this {@code Vector3} and another vector.
+     *
+     * @param other The vector to calculate the squared distance to.
+     * @return The squared Euclidean distance between this vector and the provided vector.
+     */
+    public double distance2(@Nonnull Vector3 other) {
+        return other.subtract(this).magnitude2();
+    }
+
+    /**
+     * Compares this {@code Vector3} with the specified object for equality.
+     *
+     * @param o The object to compare with.
+     * @return {@code true} if the provided object is equal to this {@code Vector3}, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof Vector3 v3)) return false;
+        return x == v3.x && y == v3.y && z == v3.z;
     }
 
     //
