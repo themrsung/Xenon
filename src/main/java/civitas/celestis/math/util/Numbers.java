@@ -56,7 +56,6 @@ public final class Numbers {
      *
      * @param values The array of values for the vector.
      * @return A new vector instance based on the length of the input array.
-     * @throws IllegalArgumentException If the array length is not valid for any vector type.
      */
     @Nonnull
     public static Vector createVector(@Nonnull double[] values) {
