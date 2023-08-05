@@ -3,8 +3,6 @@ package civitas.celestis.math.vector;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
-import java.util.Objects;
-
 /**
  * <h2>Vector2</h2>
  * <p>

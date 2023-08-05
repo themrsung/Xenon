@@ -1,6 +1,5 @@
 package civitas.celestis.util.group;
 
-import de.javagl.obj.Obj;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;

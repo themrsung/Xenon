@@ -20,7 +20,7 @@ public class Repeater {
      * Constructs a {@code Repeater} instance with the specified upper limit and initial value.
      *
      * @param limit The upper limit of the repeating sequence.
-     * @param i The initial value of the sequence.
+     * @param i     The initial value of the sequence.
      */
     public Repeater(int limit, int i) {
         this.limit = limit;

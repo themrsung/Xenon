@@ -178,7 +178,6 @@ public class GenericVector implements Vector {
     }
 
 
-
     /**
      * Compares this {@code GenericVector} with the specified object for equality.
      *
@@ -260,7 +259,7 @@ public class GenericVector implements Vector {
      * Returns a string representation of the {@code GenericVector}.
      *
      * @return A string representation of the {@code GenericVector} in the format:
-     *         "GenericVector{values=[value1, value2, ...]}".
+     * "GenericVector{values=[value1, value2, ...]}".
      */
     @Override
     @Nonnull
