@@ -1,6 +1,7 @@
 package civitas.celestis.math.util;
 
 import civitas.celestis.math.matrix.Matrix;
+import civitas.celestis.math.vector.GenericVector;
 import civitas.celestis.math.vector.Vector;
 import jakarta.annotation.Nonnull;
 
@@ -46,6 +47,127 @@ public final class Numbers {
 
         return in;
     }
+
+    //
+    // Loose Zeroness
+    //
+
+    /**
+     * Checks if a double value is considered zero within a certain margin of significance.
+     *
+     * @param d The double value to check.
+     * @return {@code true} if the value is effectively zero, {@code false} otherwise.
+     */
+    public static boolean isZero(double d) {
+        return equals(d, 0);
+    }
+
+    /**
+     * Checks if a float value is considered zero within a certain margin of significance.
+     *
+     * @param f The float value to check.
+     * @return {@code true} if the value is effectively zero, {@code false} otherwise.
+     */
+    public static boolean isZero(float f) {
+        return equals(f, 0);
+    }
+
+    /**
+     * Checks if a Vector's magnitude is effectively zero within a certain margin of significance.
+     *
+     * @param v The Vector to check.
+     * @return {@code true} if the Vector's magnitude is effectively zero, {@code false} otherwise.
+     */
+    public static boolean isZero(@Nonnull Vector v) {
+        final double[] array = new double[v.size()];
+        return equals(v, new GenericVector(array));
+    }
+
+    /**
+     * Checks if all elements in a Matrix are effectively zero within a certain margin of significance.
+     *
+     * @param m The Matrix to check.
+     * @return {@code true} if all elements in the Matrix are effectively zero, {@code false} otherwise.
+     */
+    public static boolean isZero(@Nonnull Matrix m) {
+        for (final Double d : m) {
+            if (!equals(d, 0)) return false;
+        }
+        return true;
+    }
+
+    //
+    // Loose Equality
+    //
+
+    /**
+     * Margin of significance used for comparing floating-point values.
+     */
+    public static final double MARGIN_OF_SIGNIFICANCE = 1e-6;
+
+    /**
+     * Compares two double values with a margin of significance.
+     *
+     * @param d1 The first double value.
+     * @param d2 The second double value.
+     * @return {@code true} if the values are considered equal, within the margin of significance, {@code false} otherwise.
+     */
+    public static boolean equals(double d1, double d2) {
+        return Math.abs(d1 - d2) < MARGIN_OF_SIGNIFICANCE;
+    }
+
+    /**
+     * Compares two float values with a margin of significance.
+     *
+     * @param f1 The first float value.
+     * @param f2 The second float value.
+     * @return {@code true} if the values are considered equal, within the margin of significance, {@code false} otherwise.
+     */
+    public static boolean equals(float f1, float f2) {
+        return Math.abs(f1 - f2) < MARGIN_OF_SIGNIFICANCE;
+    }
+
+    /**
+     * Compares two {@link Vector} objects with a margin of significance.
+     *
+     * @param v1 The first Vector.
+     * @param v2 The second Vector.
+     * @return {@code true} if the vectors are considered equal, within the margin of significance, {@code false} otherwise.
+     */
+    public static boolean equals(@Nonnull Vector v1, @Nonnull Vector v2) {
+        final double[] a1 = v1.toArray();
+        final double[] a2 = v2.toArray();
+
+        if (a1.length != a2.length) return false;
+        final double margin = MARGIN_OF_SIGNIFICANCE / a1.length;
+
+        for (int i = 0; i < a1.length; i++) {
+            if (Math.abs(a1[i] - a2[i]) > margin) return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Compares two {@link Matrix} objects with a margin of significance.
+     *
+     * @param m1 The first Matrix.
+     * @param m2 The second Matrix.
+     * @return {@code true} if the matrices are considered equal, within the margin of significance, {@code false} otherwise.
+     */
+    public static boolean equals(@Nonnull Matrix m1, @Nonnull Matrix m2) {
+        if (m1.getNumRows() != m2.getNumRows() || m1.getNumCols() != m2.getNumCols()) return false;
+
+        final double[] a1 = m1.toArray();
+        final double[] a2 = m2.toArray();
+
+        for (int i = 0; i < a1.length; i++) {
+            if (!equals(a1[i], a2[i])) return false;
+        }
+
+        return true;
+    }
+
     //
     // Vector-Matrix Arithmetic
     //

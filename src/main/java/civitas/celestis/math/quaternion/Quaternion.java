@@ -10,6 +10,15 @@ import jakarta.annotation.Nonnull;
  */
 public class Quaternion extends Vector4 {
     //
+    // Constants
+    //
+
+    /**
+     * The identity quaternion, representing no rotation.
+     */
+    public static final Quaternion IDENTITY = new Quaternion(1, 0, 0, 0);
+
+    //
     // Constructors
     //
 

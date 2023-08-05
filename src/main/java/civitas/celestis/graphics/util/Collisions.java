@@ -22,7 +22,7 @@ public final class Collisions {
     /**
      * Computes the intersection point between a ray and a face (triangle) using the Möller–Trumbore algorithm.
      *
-     * @param ray The ray for intersection testing.
+     * @param ray  The ray for intersection testing.
      * @param face The face (triangle) for intersection testing.
      * @return The intersection point between the ray and the face, or null if no intersection.
      */
@@ -68,7 +68,7 @@ public final class Collisions {
     /**
      * Calculates the reflection ray of an incoming ray on a face.
      *
-     * @param ray The incoming ray.
+     * @param ray  The incoming ray.
      * @param face The face on which the reflection occurs.
      * @return The reflection ray, or {@code null} if no intersection occurs.
      */
@@ -96,6 +96,7 @@ public final class Collisions {
 
     /**
      * Private constructor to prevent instantiation of the {@code Collisions} class.
+     *
      * @throws Exception This constructor throws an exception to prevent instantiation.
      */
     private Collisions() throws Exception {

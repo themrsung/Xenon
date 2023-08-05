@@ -28,6 +28,8 @@ public class ObjModel implements Model {
 
         for (int i = 0; i < object.getNumVertices(); i++) {
             final FloatTuple v = object.getVertex(i);
+
+            // Coordinate system is translated to match that of Xenon's vectors
             vertices[i] = new Vector3(v.getZ(), v.getY(), v.getX());
         }
 
