@@ -27,6 +27,9 @@ public class XenonFreeTest {
 
         final ObjModel model = new ObjModel(obj);
 
-        System.out.println(model);
+        System.out.println(model.face(0));
+
+        final ObjModel m2 = model.apply(v -> v.apply(c -> c + 100000));
+        System.out.println(m2.face(0));
     }
 }

@@ -4,6 +4,8 @@ import civitas.celestis.math.quaternion.Quaternion;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
+import java.util.function.UnaryOperator;
+
 /**
  * <h2>Vector3</h2>
  * <p>
@@ -202,6 +204,12 @@ public class Vector3 implements Vector {
     //
     // Utility
     //
+
+    @Nonnull
+    @Override
+    public Vector3 apply(@Nonnull UnaryOperator<Double> operator) {
+        return new Vector3(operator.apply(x), operator.apply(y), operator.apply(z));
+    }
 
     @Nonnull
     @Override

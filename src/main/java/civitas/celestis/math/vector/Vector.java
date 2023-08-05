@@ -4,6 +4,8 @@ import civitas.celestis.math.Number;
 import civitas.celestis.math.quaternion.Quaternion;
 import jakarta.annotation.Nonnull;
 
+import java.util.function.UnaryOperator;
+
 /**
  * <h2>Vector</h2>
  * <p>
@@ -94,6 +96,16 @@ public interface Vector extends Number {
     //
     // Utility
     //
+
+    /**
+     * Applies the given unary operator to each component of the vector and returns
+     * a new vector with the resulting values.
+     *
+     * @param operator The unary operator to apply to each component.
+     * @return A new vector with the components transformed by the given operator.
+     */
+    @Nonnull
+    Vector apply(@Nonnull UnaryOperator<Double> operator);
 
     /**
      * Returns the negation of this vector.

@@ -6,6 +6,8 @@ import civitas.celestis.math.vector.Vector3;
 import civitas.celestis.math.vector.Vector4;
 import jakarta.annotation.Nonnull;
 
+import java.util.function.UnaryOperator;
+
 /**
  * Represents a quaternion with w, x, y, and z components. This class provides methods for quaternion arithmetic,
  * magnitude calculations, conversions, and other operations.
@@ -56,7 +58,7 @@ public class Quaternion extends Vector4 {
      * @param v The vector representing the vector part of the quaternion.
      */
     public Quaternion(@Nonnull Vector4 v) {
-        this(v.w(), v.x(), v.y(), v.z());
+        super(v);
     }
 
     /**
@@ -72,6 +74,12 @@ public class Quaternion extends Vector4 {
     //
     // Methods
     //
+
+    @Nonnull
+    @Override
+    public Quaternion apply(@Nonnull UnaryOperator<Double> operator) {
+        return new Quaternion(super.apply(operator));
+    }
 
     /**
      * Returns the vector part of the quaternion as a {@link Vector3}.
@@ -200,6 +208,16 @@ public class Quaternion extends Vector4 {
         }
 
         return 2 * Math.acos(w());
+    }
+
+    /**
+     * Checks if this quaternion is equal to the identity quaternion within a certain margin of significance.
+     *
+     * @return {@code true} if this quaternion is approximately equal to the identity quaternion,
+     * {@code false} otherwise.
+     */
+    public boolean isIdentity() {
+        return Numbers.equals(this, IDENTITY);
     }
 
     /**

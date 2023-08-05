@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -223,6 +224,16 @@ public class GenericMatrix implements Matrix {
     //
     // Utility
     //
+
+    @Nonnull
+    @Override
+    public GenericMatrix apply(@Nonnull UnaryOperator<Double> operator) {
+        final GenericMatrix result = new GenericMatrix(numRows, numCols);
+        for (int i = 0; i < values.length; i++) {
+            result.values[i] = operator.apply(values[i]);
+        }
+        return result;
+    }
 
     @Nonnull
     @Override

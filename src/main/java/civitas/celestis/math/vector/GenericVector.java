@@ -6,6 +6,7 @@ import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>GenericVector</h2>
@@ -185,6 +186,22 @@ public class GenericVector implements Vector, Iterable<Double> {
             dotProduct += values[i] * otherValues[i];
         }
         return dotProduct;
+    }
+
+    //
+    // Util
+    //
+
+    @Nonnull
+    @Override
+    public GenericVector apply(@Nonnull UnaryOperator<Double> operator) {
+        final double[] result = new double[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            result[i] = operator.apply(values[i]);
+        }
+
+        return new GenericVector(result);
     }
 
     @Nonnull

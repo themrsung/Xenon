@@ -5,6 +5,7 @@ import civitas.celestis.util.group.Tuple;
 import jakarta.annotation.Nonnull;
 
 import java.util.Iterator;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>Face</h2>
@@ -73,4 +74,15 @@ public interface Face extends Iterable<Vector3> {
     @Override
     @Nonnull
     Iterator<Vector3> iterator();
+
+    /**
+     * Applies the given unary operator to each vertex of the face and returns a new face
+     * with the transformed vertices.
+     *
+     * @param operator The unary operator to apply to each vertex of the face.
+     * @return A new face with the transformed vertices.
+     * @throws NullPointerException If the operator is null.
+     */
+    @Nonnull
+    Face apply(@Nonnull UnaryOperator<Vector3> operator);
 }

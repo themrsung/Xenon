@@ -3,6 +3,8 @@ package civitas.celestis.math.vector;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
+import java.util.function.UnaryOperator;
+
 /**
  * <h2>Vector2</h2>
  * <p>
@@ -160,6 +162,13 @@ public class Vector2 implements Vector {
     //
     // Utility
     //
+
+
+    @Nonnull
+    @Override
+    public Vector2 apply(@Nonnull UnaryOperator<Double> operator) {
+        return new Vector2(operator.apply(x), operator.apply(y));
+    }
 
     @Nonnull
     public Vector2 negate() {

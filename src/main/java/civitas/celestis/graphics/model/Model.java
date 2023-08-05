@@ -4,6 +4,8 @@ import civitas.celestis.graphics.face.Face;
 import civitas.celestis.math.vector.Vector3;
 import jakarta.annotation.Nonnull;
 
+import java.util.function.UnaryOperator;
+
 /**
  * <h2>Model</h2>
  * <p>
@@ -61,4 +63,15 @@ public interface Model {
      * @return The number of faces.
      */
     int numFaces();
+
+    /**
+     * Applies a given unary operator to each vertex of the model and returns a new model
+     * with the modified vertices.
+     *
+     * @param operator The unary operator to be applied to each vertex.
+     * @return A new model with the modified vertices.
+     * @throws IllegalArgumentException If the operator is null.
+     */
+    @Nonnull
+    Model apply(@Nonnull UnaryOperator<Vector3> operator);
 }

@@ -9,6 +9,7 @@ import de.javagl.obj.ObjFace;
 import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>ObjModel</h2>
@@ -41,6 +42,18 @@ public class ObjModel implements Model {
                     vertices[f.getVertexIndex(2)]
             );
         }
+    }
+
+    /**
+     * Constructs an ObjModel with the given vertices and faces.
+     *
+     * @param vertices The array of vertices for the model.
+     * @param faces The array of faces for the model.
+     * @throws IllegalArgumentException If either vertices or faces are null.
+     */
+    protected ObjModel(@Nonnull Vector3[] vertices, @Nonnull Face[] faces) {
+        this.vertices = vertices.clone();
+        this.faces = faces.clone();
     }
 
     @Nonnull
@@ -86,6 +99,22 @@ public class ObjModel implements Model {
     @Override
     public int numFaces() {
         return faces.length;
+    }
+
+    @Nonnull
+    @Override
+    public ObjModel apply(@Nonnull UnaryOperator<Vector3> operator) {
+        final Vector3[] newVertices = new Vector3[vertices.length];
+        for (int i = 0; i < vertices.length; i++) {
+            newVertices[i] = operator.apply(vertices[i]);
+        }
+
+        final Face[] newFaces = new Face[faces.length];
+        for (int i = 0; i < faces.length; i++) {
+            newFaces[i] = faces[i].apply(operator);
+        }
+
+        return new ObjModel(newVertices, newFaces);
     }
 
     @Override

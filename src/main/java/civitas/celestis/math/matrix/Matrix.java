@@ -4,6 +4,7 @@ import civitas.celestis.math.Number;
 import jakarta.annotation.Nonnull;
 
 import java.util.Iterator;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>Matrix</h2>
@@ -134,6 +135,15 @@ public interface Matrix extends Number, Iterable<Double> {
     //
     // Utility
     //
+
+    /**
+     * Applies the given unary operator element-wise to each element of the matrix.
+     *
+     * @param operator The unary operator to be applied.
+     * @return A new matrix where the given operator has been applied element-wise.
+     */
+    @Nonnull
+    Matrix apply(@Nonnull UnaryOperator<Double> operator);
 
     /**
      * Returns a new matrix where all elements are negated (multiplied by -1).

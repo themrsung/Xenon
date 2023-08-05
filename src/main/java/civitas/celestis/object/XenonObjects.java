@@ -1,12 +1,11 @@
 package civitas.celestis.object;
 
-import civitas.celestis.math.quaternion.Quaternion;
 import jakarta.annotation.Nonnull;
 
 /**
  * <h2>XenonObjects</h2>
  * <p>
- * Utility class for XenonObjects, providing static methods and constants.
+ * Utility class for Xenon objects, providing static methods.
  * This class cannot be instantiated.
  * </p>
  */
@@ -43,7 +42,7 @@ public final class XenonObjects {
      * @return {@code true} if the rotation rate is not equal to the identity quaternion, indicating rotation, {@code false} otherwise.
      */
     public static boolean isRotating(@Nonnull Movable o) {
-        return !o.getRotationRate().equals(Quaternion.IDENTITY);
+        return !o.getRotationRate().isIdentity();
     }
 
     //

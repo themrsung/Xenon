@@ -6,6 +6,7 @@ import jakarta.annotation.Nonnull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>GenericFace</h2>
@@ -52,6 +53,29 @@ public class GenericFace implements Face {
     }
 
     /**
+     * Protected constructor for creating a generic face with specified vertices, centroid, and normal.
+     *
+     * @param a        The first vertex of the face.
+     * @param b        The second vertex of the face.
+     * @param c        The third vertex of the face.
+     * @param centroid The centroid of the face.
+     * @param normal   The normal vector of the face.
+     */
+    protected GenericFace(
+            @Nonnull Vector3 a,
+            @Nonnull Vector3 b,
+            @Nonnull Vector3 c,
+            @Nonnull Vector3 centroid,
+            @Nonnull Vector3 normal
+    ) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.centroid = centroid;
+        this.normal = normal;
+    }
+
+    /**
      * Calculates and returns the centroid of the face.
      *
      * @return The centroid vector.
@@ -82,81 +106,58 @@ public class GenericFace implements Face {
     @Nonnull
     private final Vector3 normal;
 
-    /**
-     * Returns the first vertex of the face.
-     *
-     * @return The first vertex.
-     */
     @Nonnull
     @Override
     public Vector3 a() {
         return a;
     }
 
-    /**
-     * Returns the second vertex of the face.
-     *
-     * @return The second vertex.
-     */
     @Nonnull
     @Override
     public Vector3 b() {
         return b;
     }
 
-    /**
-     * Returns the third vertex of the face.
-     *
-     * @return The third vertex.
-     */
     @Nonnull
     @Override
     public Vector3 c() {
         return c;
     }
 
-    /**
-     * Returns the centroid of the face.
-     *
-     * @return The centroid vector.
-     */
     @Nonnull
     @Override
     public Vector3 centroid() {
         return centroid;
     }
 
-    /**
-     * Returns the normal vector of the face.
-     *
-     * @return The normal vector.
-     */
     @Nonnull
     @Override
     public Vector3 normal() {
         return normal;
     }
 
-    /**
-     * Converts the face's vertices into a tuple of vertices.
-     *
-     * @return The tuple of vertices.
-     */
     @Nonnull
     @Override
     public Tuple<Vector3> toTuple() {
         return new Tuple<>(a, b, c);
     }
 
-    /**
-     * Returns an iterator over the vertices of the face.
-     *
-     * @return An iterator over the vertices.
-     */
     @Nonnull
     @Override
     public Iterator<Vector3> iterator() {
         return List.of(a, b, c).iterator();
+    }
+
+    @Nonnull
+    @Override
+    public GenericFace apply(@Nonnull UnaryOperator<Vector3> operator) {
+        return new GenericFace(
+                operator.apply(a),
+                operator.apply(b),
+                operator.apply(c),
+                operator.apply(centroid),
+                operator.apply(normal)
+        );
     }
 
     @Override
