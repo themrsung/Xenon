@@ -20,7 +20,6 @@ public @interface EventHandler {
      * Returns the priority level at which the event handler should be executed.
      *
      * @return The priority level of the event handler.
-     * @implSpec The default priority is {@link HandlerPriority#NORMAL}.
      */
     @Nonnull
     HandlerPriority priority() default HandlerPriority.NORMAL;
