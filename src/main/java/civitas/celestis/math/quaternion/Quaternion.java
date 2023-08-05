@@ -113,10 +113,14 @@ public class Quaternion extends Vector4 {
      */
     @Nonnull
     public Quaternion scale(double s) {
-        final double angle = Math.acos(w()) * 2.0;
-        final double newW = Math.cos(angle * s * 0.5);
-        final Vector3 v = getVectorPart().multiply(Math.sin(angle * s * 0.5) / Math.sin(angle * 0.5));
-        return new Quaternion(newW, v);
+        // No need to scale identity quaternions
+        if (w() == 1) return IDENTITY;
+
+        final double acos = Math.acos(w());
+        return new Quaternion(
+                Math.cos(acos * s),
+                getVectorPart().divide(Math.sin(acos)).multiply(Math.sin(acos * s))
+        );
     }
 
     /**

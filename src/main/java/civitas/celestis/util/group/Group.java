@@ -24,6 +24,27 @@ import java.util.function.UnaryOperator;
  */
 public interface Group<T> extends Iterable<T> {
     /**
+     * Creates a {@link Group} instance from a given list of elements.
+     *
+     * <p>This static method creates a {@link Group} instance based on the size of the input list.
+     * If the list contains exactly 2 elements, a {@link Pair} instance is returned.
+     * If the list contains exactly 3 elements, a {@link Tuple} instance is returned.
+     * For other list sizes, an {@link UnsupportedOperationException} is thrown.</p>
+     *
+     * @param <A>   The type of elements in the list.
+     * @param list  The list of elements.
+     * @return      A {@link Group} instance representing the input list.
+     * @throws UnsupportedOperationException If the list size is not supported.
+     */
+    @Nonnull
+    static <A> Group<A> createGroup(@Nonnull List<A> list) {
+        if (list.size() == 2) return new Pair<>(list.get(0), list.get(1));
+        if (list.size() == 3) return new Tuple<>(list.get(0), list.get(1), list.get(2));
+
+        throw new UnsupportedOperationException("Group of size " + list.size() + " is not defined.");
+    }
+
+    /**
      * Returns a {@link List} representation of the objects in the group.
      *
      * @return A {@link List} containing the objects in the group.

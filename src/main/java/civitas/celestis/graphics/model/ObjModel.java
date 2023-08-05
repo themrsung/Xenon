@@ -24,6 +24,16 @@ public class ObjModel implements Model {
      * @param object The {@link Obj} object containing vertex and face information.
      */
     public ObjModel(@Nonnull Obj object) {
+        this(object, 1);
+    }
+
+    /**
+     * Creates a new {@code ObjModel} instance based on the given {@link Obj} object.
+     *
+     * @param object The {@link Obj} object containing vertex and face information.
+     * @param scale The scale to apply to all vertices.
+     */
+    public ObjModel(@Nonnull Obj object, double scale) {
         this.vertices = new Vector3[object.getNumVertices()];
         this.faces = new Face[object.getNumFaces()];
 
@@ -31,7 +41,7 @@ public class ObjModel implements Model {
             final FloatTuple v = object.getVertex(i);
 
             // Coordinate system is translated to match that of Xenon's vectors
-            vertices[i] = new Vector3(v.getZ(), v.getY(), v.getX());
+            vertices[i] = new Vector3(v.getZ(), v.getY(), v.getX()).multiply(scale);
         }
 
         for (int i = 0; i < object.getNumFaces(); i++) {

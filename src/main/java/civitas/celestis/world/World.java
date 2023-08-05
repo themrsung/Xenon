@@ -1,5 +1,6 @@
 package civitas.celestis.world;
 
+import civitas.celestis.math.vector.Vector3;
 import civitas.celestis.object.BaseObject;
 import civitas.celestis.object.Unique;
 import civitas.celestis.util.group.Pair;
@@ -16,6 +17,9 @@ import java.util.UUID;
  * </p>
  */
 public interface World extends Unique {
+    //
+    // Identification
+    //
 
     /**
      * Returns the name of the world.
@@ -24,6 +28,10 @@ public interface World extends Unique {
      */
     @Nonnull
     String getName();
+
+    //
+    // Objects
+    //
 
     /**
      * Returns a list of all objects currently present in the world.
@@ -52,6 +60,19 @@ public interface World extends Unique {
     List<Pair<BaseObject>> getOverlaps();
 
     /**
+     * Updates the list of overlapping objects within the world.
+     * <p>
+     * This method should be called to refresh the list of object overlaps
+     * based on the current positions and orientations of objects within the world.
+     * </p>
+     * <p>
+     * After calling this method, the list of overlapping objects can be retrieved
+     * using the {@link World#getOverlaps()} method.
+     * </p>
+     */
+    void updateOverlaps();
+
+    /**
      * Adds a BaseObject to the world.
      *
      * @param object The BaseObject to add to the world.
@@ -64,4 +85,37 @@ public interface World extends Unique {
      * @param object The BaseObject to remove from the world.
      */
     void removeObject(@Nonnull BaseObject object);
+
+    //
+    // Physics
+    //
+
+    /**
+     * Gets the gravity vector that affects objects in this world.
+     *
+     * @return The gravity vector. Use {@link Vector3#ZERO} for no gravity effect.
+     */
+    @Nonnull
+    Vector3 getGravity();
+
+    /**
+     * Gets the air density value that affects objects' interaction with air resistance.
+     *
+     * @return The air density value. Set to 0 for no air resistance effect.
+     */
+    double getAirDensity();
+
+    /**
+     * Sets the gravity vector that affects objects in this world.
+     *
+     * @param gravity The gravity vector to set. Use {@link Vector3#ZERO} for no gravity effect.
+     */
+    void setGravity(@Nonnull Vector3 gravity);
+
+    /**
+     * Sets the air density value that affects objects' interaction with air resistance.
+     *
+     * @param airDensity The air density value to set. Set to 0 for no air resistance effect.
+     */
+    void setAirDensity(double airDensity);
 }

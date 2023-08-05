@@ -5,7 +5,12 @@ import civitas.celestis.module.EventManager;
 import civitas.celestis.module.Scheduler;
 import civitas.celestis.module.WorldManager;
 import civitas.celestis.task.object.MovementTask;
+import civitas.celestis.task.physics.GravityTask;
+import civitas.celestis.task.physics.ResistanceTask;
+import civitas.celestis.task.world.UpdateOverlapTask;
 import jakarta.annotation.Nonnull;
+
+import java.util.List;
 
 /**
  * <h2>Xenon</h2>
@@ -46,7 +51,17 @@ public final class Xenon {
      * Registers tasks to the scheduler.
      */
     private static void registerTasks() {
+        // Object tasks
         scheduler.register(new MovementTask());
+
+        // Physics tasks
+        scheduler.registerAsync(List.of(
+                new GravityTask(),
+                new ResistanceTask()
+        ));
+
+        // World tasks
+        scheduler.register(new UpdateOverlapTask());
     }
 
     /**
