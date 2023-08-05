@@ -1,5 +1,7 @@
 package civitas.celestis.math.quaternion;
 
+import civitas.celestis.math.util.Numbers;
+import civitas.celestis.math.util.QuaternionBuilder;
 import civitas.celestis.math.vector.Vector3;
 import civitas.celestis.math.vector.Vector4;
 import jakarta.annotation.Nonnull;
@@ -9,6 +11,20 @@ import jakarta.annotation.Nonnull;
  * magnitude calculations, conversions, and other operations.
  */
 public class Quaternion extends Vector4 {
+    //
+    // Builder
+    //
+
+    /**
+     * Creates a new instance of {@link QuaternionBuilder} to start building a quaternion.
+     *
+     * @return A new {@link QuaternionBuilder} instance for constructing quaternions.
+     */
+    @Nonnull
+    public static QuaternionBuilder builder() {
+        return new QuaternionBuilder();
+    }
+
     //
     // Constants
     //
@@ -123,6 +139,70 @@ public class Quaternion extends Vector4 {
     }
 
     /**
+     * Calculates the pitch angle (rotation around the X-axis) from this Quaternion.
+     *
+     * @return The pitch angle in radians.
+     */
+    public double pitch() {
+        final double sinp = 2 * (w() * x() + y() * z());
+        final double cosp = 1 - 2 * (x() * x() + y() * y());
+        return Math.atan2(sinp, cosp);
+    }
+
+    /**
+     * Calculates the yaw angle (rotation around the Y-axis) from this Quaternion.
+     *
+     * @return The yaw angle in radians.
+     */
+    public double yaw() {
+        final double sinp = 2 * (w() * y() - z() * x());
+        final double cosp = 1 - 2 * (y() * y() + z() * z());
+        return Math.atan2(sinp, cosp);
+    }
+
+    /**
+     * Calculates the roll angle (rotation around the Z-axis) from this Quaternion.
+     *
+     * @return The roll angle in radians.
+     */
+    public double roll() {
+        final double sinr = 2 * (w() * z() + x() * y());
+        final double cosr = 1 - 2 * (y() * y() + z() * z());
+        return Math.atan2(sinr, cosr);
+    }
+
+    /**
+     * Calculates the axis of rotation represented by this quaternion.
+     *
+     * @return The axis of rotation represented by this quaternion.
+     * @throws IllegalStateException If the quaternion represents no rotation (identity quaternion).
+     */
+    @Nonnull
+    public Vector3 axis() {
+        if (Math.abs(w()) >= 1.0 - Numbers.MARGIN_OF_SIGNIFICANCE) {
+            throw new IllegalStateException("Quaternion represents no rotation (identity quaternion).");
+        }
+
+        final double angle = 2 * Math.acos(w());
+        final double factor = 1.0 / Math.sqrt(1 - w() * w());
+        return new Vector3(x() * factor, y() * factor, z() * factor).normalize();
+    }
+
+    /**
+     * Calculates the angle in radians of rotation represented by this quaternion.
+     *
+     * @return The angle in radians of rotation represented by this quaternion.
+     * @throws IllegalStateException If the quaternion represents no rotation (identity quaternion).
+     */
+    public double angle() {
+        if (Math.abs(w()) >= 1.0 - Numbers.MARGIN_OF_SIGNIFICANCE) {
+            throw new IllegalStateException("Quaternion represents no rotation (identity quaternion).");
+        }
+
+        return 2 * Math.acos(w());
+    }
+
+    /**
      * Compares this {@code Quaternion} with the specified object for equality.
      *
      * @param o The object to compare with.
@@ -132,6 +212,17 @@ public class Quaternion extends Vector4 {
     public boolean equals(Object o) {
         if (!(o instanceof Quaternion q)) return false;
         return super.equals(q);
+    }
+
+    /**
+     * Returns a new instance of {@link QuaternionBuilder} initialized with the current state of this {@link QuaternionBuilder}.
+     * This allows creating a new {@link QuaternionBuilder} that starts from the same quaternion state as the current builder.
+     *
+     * @return A new {@link QuaternionBuilder} initialized with the current state of this builder.
+     */
+    @Nonnull
+    public QuaternionBuilder toBuilder() {
+        return new QuaternionBuilder(this);
     }
 
     //
