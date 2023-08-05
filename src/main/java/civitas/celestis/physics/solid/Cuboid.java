@@ -254,7 +254,7 @@ public class Cuboid implements Solid {
 
     @Override
     public double crossSection(@Nonnull Vector3 viewDirection) {
-        return 1; // FIXME
+        return Math.PI * (dimensions.magnitude2() / 4.0);
     }
 
     @Override
@@ -277,6 +277,19 @@ public class Cuboid implements Solid {
 
     @Override
     public boolean overlaps(@Nonnull Solid other) {
-        return false;
+        if (other instanceof Sphere sphere) {
+            // This may not be accurate for elongated cuboids
+            final double halfDiagonalSquared = dimensions.magnitude2() / 2;
+            final double radiusSquared = sphere.radius();
+            final double distanceSquared = centroid.distance2(sphere.centroid());
+
+            return distanceSquared <= halfDiagonalSquared * radiusSquared;
+        } else {
+            for (final Vector3 corner : other.corners()) {
+                if (contains(corner)) return true;
+            }
+
+            return false;
+        }
     }
 }

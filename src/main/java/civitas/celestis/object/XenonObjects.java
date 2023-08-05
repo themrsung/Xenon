@@ -45,6 +45,26 @@ public final class XenonObjects {
         return !o.getRotationRate().isIdentity();
     }
 
+    /**
+     * Calculates the drag coefficient for the given object based on its solid's drag coefficient and the negative of its acceleration.
+     *
+     * @param o The object for which to calculate the drag coefficient.
+     * @return The calculated drag coefficient.
+     */
+    public static double dragCoefficient(@Nonnull BaseObject o) {
+        return o.getSolid().dragCoefficient(o.getAcceleration().negate());
+    }
+
+    /**
+     * Calculates the cross-sectional area for the given object based on its solid's cross-sectional area and the negative of its acceleration.
+     *
+     * @param o The object for which to calculate the cross-sectional area.
+     * @return The calculated cross-sectional area.
+     */
+    public static double crossSection(@Nonnull BaseObject o) {
+        return o.getSolid().crossSection(o.getAcceleration().negate());
+    }
+
     //
     // Instantiation Blocking
     //

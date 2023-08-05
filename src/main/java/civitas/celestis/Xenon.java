@@ -1,7 +1,10 @@
 package civitas.celestis;
 
+import civitas.celestis.listener.object.ObjectCollisionListener;
 import civitas.celestis.module.EventManager;
 import civitas.celestis.module.Scheduler;
+import civitas.celestis.module.WorldManager;
+import civitas.celestis.task.object.MovementTask;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -20,6 +23,9 @@ public final class Xenon {
      * Starts the Xenon game engine by initializing modules.
      */
     public static void start() {
+        registerTasks();
+        registerListeners();
+
         eventManager.start();
         scheduler.start();
     }
@@ -30,6 +36,24 @@ public final class Xenon {
     public static void stop() {
         eventManager.stop();
         scheduler.stop();
+    }
+
+    //
+    // Internal Methods
+    //
+
+    /**
+     * Registers tasks to the scheduler.
+     */
+    private static void registerTasks() {
+        scheduler.register(new MovementTask());
+    }
+
+    /**
+     * Registers event listeners to the event manager.
+     */
+    private static void registerListeners() {
+        eventManager.register(new ObjectCollisionListener());
     }
 
     //
@@ -56,10 +80,21 @@ public final class Xenon {
         return scheduler;
     }
 
+    /**
+     * Retrieves the world manager instance associated with the Xenon game engine.
+     *
+     * @return The world manager.
+     */
+    @Nonnull
+    public static WorldManager getWorldManager() {
+        return worldManager;
+    }
+
     //
     // Definitions
     //
 
     private static final EventManager eventManager = new EventManager();
     private static final Scheduler scheduler = new Scheduler();
+    private static final WorldManager worldManager = new WorldManager();
 }

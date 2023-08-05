@@ -48,7 +48,7 @@ public class ObjModel implements Model {
      * Constructs an ObjModel with the given vertices and faces.
      *
      * @param vertices The array of vertices for the model.
-     * @param faces The array of faces for the model.
+     * @param faces    The array of faces for the model.
      * @throws IllegalArgumentException If either vertices or faces are null.
      */
     protected ObjModel(@Nonnull Vector3[] vertices, @Nonnull Face[] faces) {
