@@ -1,10 +1,7 @@
 package civitas.celestis.math.util;
 
 import civitas.celestis.math.matrix.Matrix;
-import civitas.celestis.math.vector.Vector;
-import civitas.celestis.math.vector.Vector2;
-import civitas.celestis.math.vector.Vector3;
-import civitas.celestis.math.vector.Vector4;
+import civitas.celestis.math.vector.*;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -71,7 +68,7 @@ public final class Numbers {
         } else if (length == 4) {
             return new Vector4(values[0], values[1], values[2], values[3]);
         } else {
-            throw new IllegalArgumentException("Invalid array length for vector.");
+            return new GenericVector(values);
         }
     }
 
