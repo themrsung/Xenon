@@ -2,18 +2,17 @@ package civitas.celestis;
 
 import civitas.celestis.math.matrix.GenericMatrix;
 import civitas.celestis.math.matrix.Matrix;
-import civitas.celestis.util.group.Pair;
 import civitas.celestis.util.group.Tuple;
 
 public class XenonMathTest {
     public static void main(String[] args) {
-        final Matrix m = new GenericMatrix(new double[][] {
+        final Matrix m = new GenericMatrix(new double[][]{
                 {1, 1, 1},
                 {2, 2, 2},
                 {3, 3, 3}
         });
 
-        final Matrix n = new GenericMatrix(new double[][] {
+        final Matrix n = new GenericMatrix(new double[][]{
                 {3, 3, 3},
                 {2, 2, 2},
                 {1, 1, 1}

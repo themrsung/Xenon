@@ -39,7 +39,7 @@ public class GenericMatrix implements Matrix {
      *
      * @param numRows The number of rows in the matrix.
      * @param numCols The number of columns in the matrix.
-     * @param values The 1D array of values to initialize the matrix with.
+     * @param values  The 1D array of values to initialize the matrix with.
      * @throws IllegalArgumentException If the number of rows or columns is not positive.
      */
     public GenericMatrix(int numRows, int numCols, @Nonnull double[] values) {

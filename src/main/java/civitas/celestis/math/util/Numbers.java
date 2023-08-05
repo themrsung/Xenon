@@ -1,7 +1,7 @@
 package civitas.celestis.math.util;
 
 import civitas.celestis.math.matrix.Matrix;
-import civitas.celestis.math.vector.*;
+import civitas.celestis.math.vector.Vector;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -46,31 +46,6 @@ public final class Numbers {
 
         return in;
     }
-
-    //
-    // Factory
-    //
-
-    /**
-     * Creates a vector from a double array.
-     *
-     * @param values The array of values for the vector.
-     * @return A new vector instance based on the length of the input array.
-     */
-    @Nonnull
-    public static Vector createVector(@Nonnull double[] values) {
-        int length = values.length;
-        if (length == 2) {
-            return new Vector2(values[0], values[1]);
-        } else if (length == 3) {
-            return new Vector3(values[0], values[1], values[2]);
-        } else if (length == 4) {
-            return new Vector4(values[0], values[1], values[2], values[3]);
-        } else {
-            return new GenericVector(values);
-        }
-    }
-
     //
     // Vector-Matrix Arithmetic
     //
@@ -108,7 +83,7 @@ public final class Numbers {
             resultArray[i] = sum;
         }
 
-        return createVector(resultArray);
+        return Vector.createVector(resultArray);
     }
 
     /**
@@ -144,7 +119,7 @@ public final class Numbers {
             resultArray[i] = diff;
         }
 
-        return createVector(resultArray);
+        return Vector.createVector(resultArray);
     }
 
     /**
@@ -178,7 +153,7 @@ public final class Numbers {
             resultArray[i] = sum;
         }
 
-        return createVector(resultArray);
+        return Vector.createVector(resultArray);
     }
 
     //
@@ -195,6 +170,6 @@ public final class Numbers {
      * @throws Exception Always throws an exception to prevent instantiation.
      */
     private Numbers() throws Exception {
-        throw new Exception();
+        throw new Exception("Numbers class cannot be instantiated.");
     }
 }

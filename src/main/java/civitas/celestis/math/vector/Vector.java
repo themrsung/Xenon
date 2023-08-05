@@ -1,6 +1,7 @@
 package civitas.celestis.math.vector;
 
 import civitas.celestis.math.Number;
+import civitas.celestis.math.quaternion.Quaternion;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -112,4 +113,61 @@ public interface Vector extends Number {
      */
     @Nonnull
     Vector normalize();
+
+    //
+    // Factory
+    //
+
+    /**
+     * Creates a vector from a double array.
+     *
+     * @param values The array of values for the vector.
+     * @return A new vector instance based on the length of the input array.
+     */
+    @Nonnull
+    static Vector createVector(@Nonnull double[] values) {
+        int length = values.length;
+
+        if (length == 2) {
+            return new Vector2(values[0], values[1]);
+        } else if (length == 3) {
+            return new Vector3(values[0], values[1], values[2]);
+        } else if (length == 4) {
+            return new Vector4(values[0], values[1], values[2], values[3]);
+        } else {
+            return new GenericVector(values);
+        }
+    }
+
+    /**
+     * Parses a string representation of a vector and returns a Vector instance.
+     *
+     * @param input The string representation of the vector.
+     * @return A Vector instance representing the parsed vector.
+     * @throws NumberFormatException If the input string is not a valid vector format.
+     */
+    @Nonnull
+    static Vector parseVector(@Nonnull String input) {
+        try {
+            return Vector2.parseVector(input);
+        } catch (NumberFormatException e) {}
+
+        try {
+            return Vector3.parseVector(input);
+        } catch (NumberFormatException e) {}
+
+        try {
+            return Vector4.parseVector(input);
+        } catch (NumberFormatException e) {}
+
+        try {
+            return Quaternion.parseQuaternion(input);
+        } catch (NumberFormatException e) {}
+
+        try {
+            return GenericVector.parseVector(input);
+        } catch (NumberFormatException e) {}
+
+        throw new NumberFormatException("Input string is not a vector.");
+    }
 }

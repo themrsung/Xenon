@@ -9,7 +9,7 @@ public class XenonSerializationTest {
         final Vector4 v = new Vector4(1, 2, 3, 4);
         System.out.println(Vector4.parseVector(v.toString()));
 
-        final Matrix m = new GenericMatrix(new double[][] {
+        final Matrix m = new GenericMatrix(new double[][]{
                 {1, 2, 3},
                 {4, 5, 6}
         });

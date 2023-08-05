@@ -1,6 +1,7 @@
 package civitas.celestis;
 
-import civitas.celestis.module.*;
+import civitas.celestis.module.EventManager;
+import civitas.celestis.module.Scheduler;
 import jakarta.annotation.Nonnull;
 
 /**
