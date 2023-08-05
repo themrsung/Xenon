@@ -12,6 +12,20 @@ import jakarta.annotation.Nonnull;
  */
 public class Vector2 implements Vector {
     //
+    // Constants
+    //
+
+    /**
+     * Absolute zero. Represents origin.
+     */
+    public static final Vector2 ZERO = new Vector2(0, 0);
+
+    public static final Vector2 POSITIVE_X = new Vector2(1, 0);
+    public static final Vector2 POSITIVE_Y = new Vector2(0, 1);
+    public static final Vector2 NEGATIVE_X = new Vector2(-1, 0);
+    public static final Vector2 NEGATIVE_Y = new Vector2(0, -1);
+
+    //
     // Constructors
     //
 
@@ -150,6 +164,15 @@ public class Vector2 implements Vector {
     @Nonnull
     public Vector2 negate() {
         return new Vector2(-x, -y);
+    }
+
+    @Nonnull
+    @Override
+    public Vector2 normalize() {
+        final double magnitude = magnitude();
+        if (magnitude == 0) return ZERO;
+
+        return new Vector2(x / magnitude, y / magnitude);
     }
 
     /**

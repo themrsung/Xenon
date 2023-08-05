@@ -102,4 +102,14 @@ public interface Vector extends Number {
      */
     @Nonnull
     Vector negate();
+
+    /**
+     * Returns a normalized vector.
+     * If the magnitude is {@code 0}, this will return a vector with no direction or magnitude.
+     * (a vector where all component values are zero)
+     *
+     * @return A normalized vector.
+     */
+    @Nonnull
+    Vector normalize();
 }

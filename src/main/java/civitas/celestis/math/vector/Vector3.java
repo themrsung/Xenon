@@ -1,5 +1,6 @@
 package civitas.celestis.math.vector;
 
+import civitas.celestis.math.quaternion.Quaternion;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
@@ -11,6 +12,22 @@ import jakarta.annotation.Nonnull;
  * </p>
  */
 public class Vector3 implements Vector {
+    //
+    // Constants
+    //
+
+    /**
+     * Absolute zero. Represents origin.
+     */
+    public static final Vector3 ZERO = new Vector3(0, 0, 0);
+
+    public static final Vector3 POSITIVE_X = new Vector3(1, 0, 0);
+    public static final Vector3 POSITIVE_Y = new Vector3(0, 1, 0);
+    public static final Vector3 POSITIVE_Z = new Vector3(0, 0, 1);
+    public static final Vector3 NEGATIVE_X = new Vector3(-1, 0, 0);
+    public static final Vector3 NEGATIVE_Y = new Vector3(0, -1, 0);
+    public static final Vector3 NEGATIVE_Z = new Vector3(0, 0, -1);
+
     //
     // Constructors
     //
@@ -190,6 +207,15 @@ public class Vector3 implements Vector {
     @Override
     public Vector3 negate() {
         return new Vector3(-x, -y, -z);
+    }
+
+    @Nonnull
+    @Override
+    public Vector3 normalize() {
+        final double magnitude = magnitude();
+        if (magnitude == 0) return ZERO;
+
+        return new Vector3(x / magnitude, y / magnitude, z / magnitude);
     }
 
     /**

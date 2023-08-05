@@ -1,9 +1,11 @@
 package civitas.celestis.math.vector;
 
+import civitas.celestis.math.quaternion.Quaternion;
 import civitas.celestis.math.util.Numbers;
 import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * <h2>GenericVector</h2>
@@ -13,7 +15,7 @@ import java.util.Arrays;
  * can be created with an array of values. It supports element-wise operations and deep copying.
  * </p>
  */
-public class GenericVector implements Vector {
+public class GenericVector implements Vector, Iterable<Double> {
     //
     // Constructors
     //
@@ -37,6 +39,24 @@ public class GenericVector implements Vector {
     //
 
     private final double[] values;
+
+    //
+    // Getters
+    //
+
+    /**
+     * Returns the element at the specified index of the vector.
+     *
+     * @param i The index of the element to retrieve.
+     * @return The element at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of range (i.e., index < 0 || index >= length).
+     */
+    double get(int i) throws IndexOutOfBoundsException {
+        if (i < 0 || i >= values.length) {
+            throw new IndexOutOfBoundsException("Index is out of range: " + i);
+        }
+        return values[i];
+    }
 
     //
     // Conversion
@@ -88,7 +108,7 @@ public class GenericVector implements Vector {
 
     @Nonnull
     @Override
-    public Vector add(double s) {
+    public GenericVector add(double s) {
         final double[] resultValues = new double[values.length];
         for (int i = 0; i < values.length; i++) {
             resultValues[i] = values[i] + s;
@@ -98,7 +118,7 @@ public class GenericVector implements Vector {
 
     @Nonnull
     @Override
-    public Vector subtract(double s) {
+    public GenericVector subtract(double s) {
         final double[] resultValues = new double[values.length];
         for (int i = 0; i < values.length; i++) {
             resultValues[i] = values[i] - s;
@@ -108,7 +128,7 @@ public class GenericVector implements Vector {
 
     @Nonnull
     @Override
-    public Vector multiply(double s) {
+    public GenericVector multiply(double s) {
         final double[] resultValues = new double[values.length];
         for (int i = 0; i < values.length; i++) {
             resultValues[i] = values[i] * s;
@@ -118,7 +138,7 @@ public class GenericVector implements Vector {
 
     @Nonnull
     @Override
-    public Vector divide(double s) {
+    public GenericVector divide(double s) {
         if (s == 0) {
             throw new IllegalArgumentException("Division by zero.");
         }
@@ -130,7 +150,7 @@ public class GenericVector implements Vector {
     }
 
     @Nonnull
-    public Vector add(@Nonnull Vector other) {
+    public GenericVector add(@Nonnull Vector other) {
         if (other.size() != values.length) {
             throw new IllegalArgumentException("Vector dimensions must match.");
         }
@@ -143,7 +163,7 @@ public class GenericVector implements Vector {
     }
 
     @Nonnull
-    public Vector subtract(@Nonnull Vector other) {
+    public GenericVector subtract(@Nonnull Vector other) {
         if (other.size() != values.length) {
             throw new IllegalArgumentException("Vector dimensions must match.");
         }
@@ -169,7 +189,7 @@ public class GenericVector implements Vector {
 
     @Nonnull
     @Override
-    public Vector negate() {
+    public GenericVector negate() {
         final double[] resultValues = new double[values.length];
         for (int i = 0; i < values.length; i++) {
             resultValues[i] = -values[i];
@@ -177,6 +197,16 @@ public class GenericVector implements Vector {
         return new GenericVector(resultValues);
     }
 
+    @Nonnull
+    @Override
+    public GenericVector normalize() {
+        final double[] resultValues = new double[values.length];
+        final double magnitude = magnitude();
+        for (int i = 0; i < values.length; i++) {
+            resultValues[i] = magnitude != 0 ? values[i] / magnitude : 0;
+        }
+        return new GenericVector(resultValues);
+    }
 
     /**
      * Compares this {@code GenericVector} with the specified object for equality.
@@ -249,6 +279,17 @@ public class GenericVector implements Vector {
             throw new UnsupportedOperationException("Cannot convert to Quaternion: Incorrect size.");
         }
         return new Quaternion(values[0], values[1], values[2], values[3]);
+    }
+
+    /**
+     * Returns an iterator over the elements in the vector.
+     *
+     * @return An iterator over the elements in the vector.
+     */
+    @Override
+    @Nonnull
+    public Iterator<Double> iterator() {
+        return Arrays.stream(values).iterator();
     }
 
     //

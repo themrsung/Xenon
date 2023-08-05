@@ -2,8 +2,10 @@ package civitas.celestis.util.group;
 
 import jakarta.annotation.Nonnull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>Pair</h2>
@@ -91,5 +93,26 @@ public class Pair<T> implements Group<T> {
         if (!(obj instanceof Pair<?> pair)) return false;
 
         return Objects.equals(a, pair.a) && Objects.equals(b, pair.b);
+    }
+
+    @Nonnull
+    @Override
+    public Pair<T> apply(@Nonnull UnaryOperator<T> operator) {
+        return new Pair<>(operator.apply(a), operator.apply(b));
+    }
+
+    @Override
+    @Nonnull
+    public Iterator<T> iterator() {
+        return List.of(a, b).iterator();
+    }
+
+    @Override
+    @Nonnull
+    public String toString() {
+        return "Pair{" +
+                "a=" + a +
+                ", b=" + b +
+                '}';
     }
 }

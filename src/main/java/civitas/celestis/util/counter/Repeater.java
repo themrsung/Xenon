@@ -6,7 +6,7 @@ package civitas.celestis.util.counter;
  * <p>The {@code Repeater} class represents a simple utility for generating a sequence of numbers
  * in a repeating manner, accounting for an upper limit.</p>
  */
-public class Repeater {
+public final class Repeater {
     /**
      * Constructs a {@code Repeater} instance with the specified upper limit.
      *

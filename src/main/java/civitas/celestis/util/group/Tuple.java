@@ -2,8 +2,10 @@ package civitas.celestis.util.group;
 
 import jakarta.annotation.Nonnull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.UnaryOperator;
 
 /**
  * <h2>Tuple</h2>
@@ -108,5 +110,27 @@ public class Tuple<T> implements Group<T> {
         if (!(obj instanceof Tuple<?> tuple)) return false;
 
         return Objects.equals(a, tuple.a) && Objects.equals(b, tuple.b) && Objects.equals(c, tuple.c);
+    }
+
+    @Nonnull
+    @Override
+    public Tuple<T> apply(@Nonnull UnaryOperator<T> operator) {
+        return new Tuple<>(operator.apply(a), operator.apply(b), operator.apply(c));
+    }
+
+    @Override
+    @Nonnull
+    public Iterator<T> iterator() {
+        return List.of(a, b, c).iterator();
+    }
+
+    @Override
+    @Nonnull
+    public String toString() {
+        return "Tuple{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                '}';
     }
 }

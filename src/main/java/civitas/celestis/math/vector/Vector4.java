@@ -13,6 +13,24 @@ import jakarta.annotation.Nonnull;
  */
 public class Vector4 implements Vector {
     //
+    // Constants
+    //
+
+    /**
+     * Absolute zero. Represents origin.
+     */
+    public static final Vector4 ZERO = new Vector4(0, 0, 0, 0);
+
+    public static final Vector4 POSITIVE_W = new Vector4(1, 0, 0, 0);
+    public static final Vector4 POSITIVE_X = new Vector4(0, 1, 0, 0);
+    public static final Vector4 POSITIVE_Y = new Vector4(0, 0, 1, 0);
+    public static final Vector4 POSITIVE_Z = new Vector4(0, 0, 0, 1);
+    public static final Vector4 NEGATIVE_W = new Vector4(-1, 0, 0, 0);
+    public static final Vector4 NEGATIVE_X = new Vector4(0, -1, 0, 0);
+    public static final Vector4 NEGATIVE_Y = new Vector4(0, 0, -1, 0);
+    public static final Vector4 NEGATIVE_Z = new Vector4(0, 0, 0, -1);
+
+    //
     // Constructors
     //
 
@@ -178,6 +196,15 @@ public class Vector4 implements Vector {
     @Override
     public Vector4 negate() {
         return new Vector4(-w, -x, -y, -z);
+    }
+
+    @Nonnull
+    @Override
+    public Vector4 normalize() {
+        final double magnitude = magnitude();
+        if (magnitude == 0) return ZERO;
+
+        return new Vector4(w / magnitude, x / magnitude, y / magnitude, z / magnitude);
     }
 
     /**

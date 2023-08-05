@@ -180,4 +180,21 @@ public final class Numbers {
 
         return createVector(resultArray);
     }
+
+    //
+    // Instantiation Blocking
+    //
+
+    /**
+     * Private constructor to prevent instantiation of the utility class.
+     * <p>
+     * This constructor is intentionally marked as private to prevent the creation of instances
+     * of the {@code Numbers} class. It throws an exception to indicate that instances of this class
+     * cannot be created.
+     *
+     * @throws Exception Always throws an exception to prevent instantiation.
+     */
+    private Numbers() throws Exception {
+        throw new Exception();
+    }
 }
